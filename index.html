@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Broadcast Data – Lightning Out Test</title>
+
+    <!-- Lightning Out script from your org -->
+    <script src="https://sparkscheduling--uat.sandbox.my.salesforce.com/lightning/lightning.out.js"></script>
+
+    <style>
+        body {
+            font-family: 'Salesforce Sans', Arial, sans-serif;
+            background: #f3f3f3;
+            margin: 0;
+            padding: 32px;
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #032d60;
+            margin-bottom: 24px;
+        }
+
+        #status {
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        #broadcastContainer {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Broadcast Data – Lightning Out Beta Test</h1>
+    <div id="status">⏳ Loading component...</div>
+    <div id="broadcastContainer"></div>
+
+    <script>
+        $Lightning.use(
+            "c:broadcastDataApp",
+            function () {
+                document.getElementById("status").textContent = "✅ Connected to Salesforce!";
+
+                $Lightning.createComponent(
+                    "c:broadcastDataWrapper",
+                    {},
+                    "broadcastContainer",
+                    function (cmp) {
+                        if (cmp) {
+                            console.log("Component loaded successfully:", cmp);
+                        } else {
+                            document.getElementById("status").textContent = "⚠️ Component returned empty. Check console for details.";
+                        }
+                    }
+                );
+            },
+            "https://sparkscheduling--uat.sandbox.my.salesforce.com"
+        );
+    </script>
+
+</body>
+</html>
